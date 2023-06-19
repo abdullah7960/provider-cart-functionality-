@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_final/screens/items_list.dart';
-import 'package:provider_final/screens/items_provider.dart';
+import 'package:provider_final/controller/cartController.dart';
 
 import 'Test/test_items.dart';
 import 'Test/test_provider.dart';
@@ -19,18 +18,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_) => FavouriteProvider()),
-      ChangeNotifierProvider(create: (_) => ItemsProvider()),
-      ChangeNotifierProvider(create: (_) => ItemsProviderr()),
-
-    ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      
-      home: ItemsListt(),
-    ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FavouriteProvider()),
+        ChangeNotifierProvider(create: (_) => ItemsProviderr()),
+        ChangeNotifierProvider(create: (_) => CartController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        home: ItemsListt(),
+      ),
     );
-    }
+  }
 }
