@@ -14,44 +14,44 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
    final List<Map<String,dynamic>>gridMap =[
             {  
               "title"  :  "White",
-              "price"  :  "\$255",
+              "price"  :  "255",
               "images" :  'https://www.eatingwell.com/thmb/YxkWBfh2AvNYrDKoHukRdmRvD5U=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
 
             },
             {
               "title"  :  "Black",
-              "price"  :  "\$505",
+              "price"  :  "505",
               "images" : 'https://images.unsplash.com/photo-1547584370-2cc98b8b8dc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGJ1cmdlciUyMHBuZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
             },
             {
               "title"  :  "Orange",
-              "price"  :  "\$255",
+              "price"  :  "255",
               "images"  :"https://media.istockphoto.com/id/886902912/photo/homemade-burger.webp?b=1&s=170667a&w=0&k=20&c=soMZ9xl7bYK6cuvnqmTpvaPZuYfz1MoUT_RQDtr0SEo=",
             },
             {
               "title"  :  "Yellow",
-              "price"  :  "\$105",
+              "price"  :  "105",
               "images"  :"https://images.unsplash.com/photo-1576843776838-032ac46fbb93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJ1cmdlciUyMHBuZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
             },
             {  
               "title"  :  "Snesker",
-              "price"  :  "\$305",
+              "price"  :  "305",
               "images" :  'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyJTIwcG5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
 
             },
             {
               "title"  :  "Adidas",
-              "price"  :  "\$505",
+              "price"  :  "505",
               "images" : 'https://images.unsplash.com/photo-1547584370-2cc98b8b8dc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGJ1cmdlciUyMHBuZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
             },
             {
               "title"  :  "Jeans",
-              "price"  :  "\$255",
+              "price"  :  "255",
               "images"  :"https://media.istockphoto.com/id/886902912/photo/homemade-burger.webp?b=1&s=170667a&w=0&k=20&c=soMZ9xl7bYK6cuvnqmTpvaPZuYfz1MoUT_RQDtr0SEo=",
             },
             {
               "title"  :  "Burger",
-              "price"  :  "\$905",
+              "price"  :  "905",
               "images"  :"https://images.unsplash.com/photo-1576843776838-032ac46fbb93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJ1cmdlciUyMHBuZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
             },
  ];
@@ -61,7 +61,7 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Test Selected'),
+          title: Text('Test Selected Provider'),
           centerTitle: true,
 
         ),
@@ -102,7 +102,8 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
                                          SizedBox(
                                           height: 10,
                                          ),
-                                         Text("${gridMap.elementAt(index)['price']}",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                                         Text("${gridMap.elementAt(index)['price']}",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
+                                         ),
                                  
                                     ],
                                   ),
@@ -115,6 +116,7 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
                                      InkWell(
                                       onTap: (){
                                         favouriteeProvider.decreaseItemss();
+                                        favouriteeProvider.updatedPriceDecrement(double.parse("${gridMap.elementAt(index)['price']}"));
                                       },
                                       child: Icon(Icons.remove,size: 34,),
                                       ),
@@ -126,7 +128,9 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
                                       ),
                                      InkWell(
                                       onTap: () {
+                                        
                                         favouriteeProvider.incrementItemss();
+                                        favouriteeProvider.updatedPrice(double.parse("${gridMap.elementAt(index)['price']}"));
                                       },
                                       child: Icon(Icons.add,size: 34,),
                                       ),
@@ -148,6 +152,21 @@ class _ItemsSelecteddState extends State<ItemsSelectedd> {
                   }
                   ),
             ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Total Price',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                SizedBox(width: 25,),
+                Consumer(
+                  builder: (context, value, child) {
+                    return Text(favouriteeProvider.totalPrice.toString(),style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),);
+                  },
+                  
+                  ),
+              ],
+            ),
+            
           ],
         ),
       ),
